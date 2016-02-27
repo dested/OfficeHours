@@ -4,15 +4,14 @@ module.controller('mainCtrl', function ($scope, $http, serviceUrl) {
   $scope.callback = {};
 
 
-/*
   $http({
-    method: "GET",
-    url: serviceUrl.path('${api}something/other'),
-    extractResponse: 'stateData'
+    method: "POST",
+    url: serviceUrl.path('${api}/user/doit'),
+    data:{userId:'mike'},
+    extractResponse: ''
   }).then(function (state) {
-
+      $scope.model.item=state.data.userId;
   });
-*/
 });
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {

@@ -1,10 +1,9 @@
 angular.module('OfficeHours.client')
   .factory('apiKey', function ($window) {
-    var url = 'http://127.0.0.1:3569/api/'; // local
+    var url = 'http://localhost:4545/api'; // local
 
     if(location.hostname!='localhost'){
-       url = 'http://45.79.186.117:3569/api/'; // local
-
+       url = 'http://45.79.186.117:4545/api'; // server
     }
     return url;
   })
@@ -79,29 +78,3 @@ angular.module('OfficeHours.client')
     };
   });
 
-
-
-(function() {
-  var lastTime = 0;
-  var vendors = ['ms', 'moz', 'webkit', 'o'];
-  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-      || window[vendors[x]+'CancelRequestAnimationFrame'];
-  }
-
-  if (!window.requestAnimationFrame)
-    window.requestAnimationFrame = function(callback, element) {
-      var currTime = new Date().getTime();
-      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-      var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-        timeToCall);
-      lastTime = currTime + timeToCall;
-      return id;
-    };
-
-  if (!window.cancelAnimationFrame)
-    window.cancelAnimationFrame = function(id) {
-      clearTimeout(id);
-    };
-}());

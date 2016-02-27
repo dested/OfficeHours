@@ -16,6 +16,12 @@ namespace RestServer.Modules
                 var response = UserLogic.Register(model);
                 return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.UserId }.ToJwtPayload())));
             };
+            Post["/doit"] = _ =>
+            {
+                var model = ValidateRequest<UserDoitRequest>();
+                var response = UserLogic.Doit(model);
+                return this.Success(response );
+            };
         }
 
     }
@@ -39,6 +45,14 @@ namespace RestServer.Modules
         public string Password { get; set; }
     }
     public class UserRegisterResponse
+    {
+        public string UserId { get; set; }
+    }
+    public class UserDoitRequest
+    {
+        public string UserId { get; set; }
+    }
+    public class UserDoitResponse
     {
         public string UserId { get; set; }
     }

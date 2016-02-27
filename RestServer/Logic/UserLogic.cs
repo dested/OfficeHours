@@ -42,5 +42,13 @@ namespace RestServer.Logic
                 UserId=user.Id.ToString()
             };
         }
+
+        public static UserDoitResponse Doit(UserDoitRequest model)
+        {
+            return new UserDoitResponse()
+            {
+                UserId = model.UserId+"YEah"
+            };
+        }
     }
 }
