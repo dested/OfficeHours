@@ -36,7 +36,7 @@ namespace RestServer
                 
                                 .WithHeader("Access-Control-Allow-Credentials", "true")
                                 .WithHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS")
-                                .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type");
+                                .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type, Authorization");
 
             });
 

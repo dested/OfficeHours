@@ -62,16 +62,13 @@ namespace RestServer.Modules
     public class UserLoginResponse
     {
         public string UserId { get; set; }
+        public bool IsVendor { get; set; }
     }
     public class UserRegisterRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsVendor { get; set; }
-    }
-    public class UserRegisterResponse
-    {
-        public string UserId { get; set; }
     }
     public class UserSetVendorAvailableRequest
     {

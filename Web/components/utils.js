@@ -78,12 +78,69 @@ angular.module('OfficeHours.client')
     $httpProvider.interceptors.push('requestInterceptor');
     $httpProvider.interceptors.push('jwtInterceptor');
   })
-
+  .run(function ($q, spinnerService) {
+    var defer = $q.defer();
+    var promisePrototype = Object.getPrototypeOf(defer.promise);
+    promisePrototype.monitor = function (message) {
+      if(!this.then)return this;
+      spinnerService.monitorPromise(message, this);
+      return this;
+    };
+  })
   .service('serviceUrl', function ($window, apiKey) {
     this.path = function (templateStr, obj) {
       obj = obj || {};
       obj.api = apiKey;
       return _.template(templateStr)(obj);
     };
-  });
+  })
+
+  .run(function ($rootScope, $state, spinnerService) {
+
+    // Prevent users from viewing restricted pages unless they are logged in
+    $rootScope.$on('$stateChangeStart', function (e, to) {
+
+      if (to.data && to.data.requiresLogin) {
+        var item = localStorage.getItem('jwt');
+        if (!(item && item.length)) {
+          e.preventDefault();
+          if (to.resolve) {
+            spinnerService.stopSpinner();
+          }
+          $state.go('login');
+        }
+      }
+
+    });
+
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+      if (toState && toState.resolve) {
+        spinnerService.startSpinner('Loading...');
+      }
+    });
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+      if (toState && toState.resolve) {
+        spinnerService.stop();
+      }
+
+      // Scroll to the top of the page.
+      $("html, body").animate({scrollTop: 0}, 200);
+    });
+
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+      console.error('Failed to change to a state', error);
+
+      if (toState && toState.resolve) {
+        spinnerService.stopSpinner();
+      }
+
+      $state.go('main');
+
+
+    });
+  })
+
+
+;
 

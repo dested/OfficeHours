@@ -1,6 +1,7 @@
 var module = angular.module('OfficeHours.client', [
   'ui.router',
-  'angular-jwt'
+  'angular-jwt',
+  'ui.bootstrap'
 ]);
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {

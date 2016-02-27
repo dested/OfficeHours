@@ -26,11 +26,12 @@ namespace RestServer.Logic
 
             return new UserLoginResponse()
             {
+                IsVendor=user.Vendor!=null,
                 UserId = user.Id.ToString()
             };
         }
 
-        public static UserRegisterResponse Register(UserRegisterRequest model)
+        public static UserLoginResponse Register(UserRegisterRequest model)
         {
             var user = MongoUser.Collection.GetOne(a => a.Email == model.Email);
 
@@ -48,15 +49,15 @@ namespace RestServer.Logic
             }
             user.Insert();
 
-            return new UserRegisterResponse()
+            return new UserLoginResponse()
             {
+                IsVendor=user.Vendor!=null,
                 UserId = user.Id.ToString()
             };
         }
         public static UserDetailsResponse GetUser(UserRequest model)
         {
             var user = MongoUser.Collection.GetById(model.UserId);
-
             return new UserDetailsResponse()
             {
                 User = user

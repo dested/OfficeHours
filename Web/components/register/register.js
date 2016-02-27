@@ -1,24 +1,25 @@
 var module = angular.module('OfficeHours.client');
-module.controller('loginCtrl', function ($scope, $rootScope,$http, serviceUrl,$state) {
+module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl,$state) {
   $scope.model = {};
   $scope.callback = {};
 
   var item = localStorage.getItem('jwt');
-  if(item && item.length && false){
+  if(item && item.length){
     if($rootScope.user.isVendor){
-      $state.go('vendor-profile')
+      $state.go('vendor.profile')
     }else{
-      $state.go('member-profile')
+      $state.go('member.profile')
     }
   }
 
-  $scope.callback.login=function(){
+  $scope.callback.register=function(){
     $http({
       method: "POST",
-      url: serviceUrl.path('${api}/user/login'),
+      url: serviceUrl.path('${api}/user/register'),
       data:{
         email:$scope.model.email,
-        password:$scope.model.password
+        password:$scope.model.password,
+        isVendor:$scope.model.isVendor
       }
     }).then(function (body) {
       localStorage.setItem('jwt', body.meta.jwt);
@@ -28,16 +29,16 @@ module.controller('loginCtrl', function ($scope, $rootScope,$http, serviceUrl,$s
       }else{
         $state.go('member-profile')
       }
-    }).monitor();
+    });
   };
 });
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('login', {
+    .state('register', {
       //abstract: true,
-      url: '/login',
-      controller: 'loginCtrl',
-      templateUrl: 'components/login/login.tpl.html'
+      url: '/register',
+      controller: 'registerCtrl',
+      templateUrl: 'components/register/register.tpl.html'
     });
 });
