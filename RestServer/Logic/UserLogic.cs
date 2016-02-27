@@ -13,7 +13,7 @@ namespace RestServer.Logic
 {
     public class UserLogic
     {
-        public static UserLoginResponse Login(UserLoginRequest model)
+        public static UserDetailsResponse Login(UserLoginRequest model)
         {
             var hashPassword = PasswordUtils.HashPassword(model.Password);
 
@@ -24,14 +24,13 @@ namespace RestServer.Logic
                 throw new RequestValidationException("User not found.");
             }
 
-            return new UserLoginResponse()
+            return new UserDetailsResponse()
             {
-                IsVendor=user.Vendor!=null,
-                UserId = user.Id.ToString()
+                User = user
             };
         }
 
-        public static UserLoginResponse Register(UserRegisterRequest model)
+        public static UserDetailsResponse Register(UserRegisterRequest model)
         {
             var user = MongoUser.Collection.GetOne(a => a.Email == model.Email);
 
@@ -49,15 +48,14 @@ namespace RestServer.Logic
             }
             user.Insert();
 
-            return new UserLoginResponse()
+            return new UserDetailsResponse()
             {
-                IsVendor=user.Vendor!=null,
-                UserId = user.Id.ToString()
+                User = user
             };
         }
-        public static UserDetailsResponse GetUser(UserRequest model)
+        public static UserDetailsResponse GetUser(UserJwtModel jwtModel)
         {
-            var user = MongoUser.Collection.GetById(model.UserId);
+            var user = MongoUser.Collection.GetById(jwtModel.UserId);
             return new UserDetailsResponse()
             {
                 User = user

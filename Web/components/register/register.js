@@ -1,16 +1,18 @@
 var module = angular.module('OfficeHours.client');
-module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl,$state) {
+module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl,$state,userService) {
   $scope.model = {};
   $scope.callback = {};
 
-  var item = localStorage.getItem('jwt');
-  if(item && item.length){
-    if($rootScope.user.isVendor){
-      $state.go('vendor.profile')
-    }else{
-      $state.go('member.profile')
+  userService.checkLogin().then(function(){
+    if ($rootScope.user) {
+      if ($rootScope.user.isVendor) {
+        $state.go('vendor-profile')
+      } else {
+        $state.go('member-profile')
+      }
     }
-  }
+  });
+
 
   $scope.callback.register=function(){
     $http({
@@ -22,8 +24,7 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
         isVendor:$scope.model.isVendor
       }
     }).then(function (body) {
-      localStorage.setItem('jwt', body.meta.jwt);
-      $rootScope.user=body.data;
+      userService.login(body);
       if($rootScope.user.isVendor){
         $state.go('vendor-profile')
       }else{

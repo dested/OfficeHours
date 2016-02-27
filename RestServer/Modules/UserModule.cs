@@ -19,16 +19,20 @@ namespace RestServer.Modules
             {
                 var model = ValidateRequest<UserLoginRequest>();
                 var response = UserLogic.Login(model);
-                return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.UserId }.ToJwtPayload())));
+                return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.User.Id.ToString()}.ToJwtPayload())));
             };
             Post["/register"] = _ =>
             {
                 var model = ValidateRequest<UserRegisterRequest>();
                 var response = UserLogic.Register(model);
-                return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.UserId }.ToJwtPayload())));
+                return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.User.Id.ToString() }.ToJwtPayload())));
             };
 
-            Get["/{userId}"] = _ => this.Success(UserLogic.GetUser(ValidateRequest<UserRequest>()));
+            Get["/"] = _ =>
+            {
+                this.RequiresAuthentication();
+                return this.Success(UserLogic.GetUser(this.JwtModel));
+            };
 
             Post["/vendor-availability"] = _ => this.Success(UserLogic.SetVendorAvailable(ValidateRequest<UserSetVendorAvailableRequest>()));
             Get["/{userId}/vendor-availability"] = _ => this.Success(UserLogic.GetVendorAvailable(ValidateRequest<UserRequest>()));
