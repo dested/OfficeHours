@@ -2,8 +2,8 @@ angular.module('OfficeHours.client')
   .factory('apiKey', function ($window) {
     var url = 'http://localhost:4545/api'; // local
 
-    if(location.hostname!='localhost'){
-       url = 'http://45.79.186.117:4545/api'; // server
+    if (location.hostname != 'localhost') {
+      url = 'http://45.79.186.117:4545/api'; // server
     }
     return url;
   })
@@ -66,8 +66,17 @@ angular.module('OfficeHours.client')
     }];
   })
 
-  .config(function ($httpProvider) {
+  .config(function ($httpProvider, jwtInterceptorProvider) {
+    jwtInterceptorProvider.authPrefix = '';
+    jwtInterceptorProvider.tokenGetter = ['config', 'apiKey',  function (config, apiKey) {
+      var hyApiRegEx = new RegExp('^' + apiKey);
+      if (hyApiRegEx.test(config.url)) {
+        return localStorage.getItem("jwt");
+      }
+    }];
+
     $httpProvider.interceptors.push('requestInterceptor');
+    $httpProvider.interceptors.push('jwtInterceptor');
   })
 
   .service('serviceUrl', function ($window, apiKey) {

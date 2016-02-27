@@ -56,14 +56,8 @@ namespace RestServer.Data
             public bool IsGuest { get; set; }
             public DateTime CreatedDate { get; set; }
             public Vendor Vendor { get; set; }
-            public UserSinch Sinch { get; set; }
         }
-
-        [BsonIgnoreExtraElements]
-        public class UserSinch
-        {
-        }
-
+         
         [BsonIgnoreExtraElements]
         public class Vendor
         {

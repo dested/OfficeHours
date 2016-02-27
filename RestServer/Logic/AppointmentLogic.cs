@@ -72,12 +72,6 @@ namespace RestServer.Modules
 
         private static void scheduleAppointment(MongoUser.User userVendor, MongoUser.User userMember, ScheduleAppointmentRequest model)
         {
-
-            if (userVendor.Sinch == null)
-            {
-                createSinchAccount(userVendor);
-            }
-
             MongoAppointment.Appointment appointment = new MongoAppointment.Appointment
             {
                 StartDate = model.StartDate,
@@ -89,14 +83,7 @@ namespace RestServer.Modules
             appointment.Insert();
         }
 
-        private async static void createSinchAccount(MongoUser.User sinch)
-        {
-            var smsApi = SinchFactory.CreateApiFactory("1321b3c3-f27b-4a5f-a3a0-d117aab8894f", "/tWsZpiqkE+jhfA9cmOuJA==").CreateSmsApi();
-            var sendSmsResponse = await smsApi.Sms("+6509300547", "Hello from sinch bitch").Send();
-
-
-        }
-
+ 
         private static DateTime fixDate(DateTime toLocalTime, DateTime startDate)
         {
             return new DateTime(startDate.Year, startDate.Month, startDate.Day, toLocalTime.Hour, toLocalTime.Minute, toLocalTime.Second, DateTimeKind.Local);

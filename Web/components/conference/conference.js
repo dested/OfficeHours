@@ -9,14 +9,10 @@ module.controller('conferenceCtrl', function ($scope, $http, serviceUrl) {
     supportActiveConnection: true,
     onLogMessage: function(message) {
       console.log(message);
-    },
+    }
   });
 
   sinchClient.startActiveConnection();
-
-
-
-  alert('');
 
 });
 

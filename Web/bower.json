@@ -18,6 +18,7 @@
     "angular-ui-router": "~0.2.15",
     "jquery": "~2.1.4",
     "modernizr": "~2.8.3",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "angular-jwt": "~0.0.9"
   }
 }
