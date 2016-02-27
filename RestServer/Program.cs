@@ -1,5 +1,6 @@
 ﻿using System;
 using Nancy.Hosting.Self;
+using Sinch.ServerSdk;
 
 namespace RestServer
 {
@@ -7,6 +8,10 @@ namespace RestServer
     {
         static void Main(string[] args)
         {
+
+            
+
+
             var uri =
                 new Uri("http://localhost:4545");
             HostConfiguration hostConfigs = new HostConfiguration();

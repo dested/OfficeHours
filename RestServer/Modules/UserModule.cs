@@ -33,7 +33,6 @@ namespace RestServer.Modules
             Post["/vendor-availability"] = _ => this.Success(UserLogic.SetVendorAvailable(ValidateRequest<UserSetVendorAvailableRequest>()));
             Get["/{userId}/vendor-availability"] = _ => this.Success(UserLogic.GetVendorAvailable(ValidateRequest<UserRequest>()));
 
-            Post["/schedule-appointment"] = _ => this.Success(UserLogic.ScheduleAppointment(ValidateRequest<ScheduleAppointmentRequest>()));
         }
 
     }
@@ -78,30 +77,7 @@ namespace RestServer.Modules
     {
         public string VendorId { get; set; }
         public MongoUser.VendorSchedule Schedule { get; set; }
-    }
-    public class ScheduleAppointmentRequest
-    {
-        public string VendorId { get; set; }
-        public string MemberId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-    }
-    public class ScheduleAppointmentResponse
-    {
-        [JsonConverter(typeof(StringEnumConverter))]
-        [BsonRepresentation(BsonType.String)]
-        public ScheduleError Error { get; set; }
-    }
-
-    public enum ScheduleError
-    {
-        None,
-        OutsideOfWindow,
-        DoubleBookingMember,
-        DoubleBookingVendor,
-    }
-
-
+    } 
 
     public class SuccessResponse
     {

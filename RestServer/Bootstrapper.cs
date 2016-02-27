@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using JWT;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -15,6 +16,8 @@ using Newtonsoft.Json.Serialization;
 using RestServer.Common;
 using RestServer.Common.Nancy;
 using RestServer.Modules;
+using Sinch.ServerSdk;
+using Sinch.ServerSdk.Messaging;
 
 namespace RestServer
 {
@@ -22,7 +25,7 @@ namespace RestServer
     {
         public Bootstrapper()
         {
-            JsonSettings.MaxJsonLength = Int32.MaxValue;
+          JsonSettings.MaxJsonLength = Int32.MaxValue;
         }
 
         protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext requestContext)
