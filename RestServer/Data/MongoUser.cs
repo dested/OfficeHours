@@ -56,8 +56,15 @@ namespace RestServer.Data
             public bool IsGuest { get; set; }
             public DateTime CreatedDate { get; set; }
             public Vendor Vendor { get; set; }
+            public SinchData Sinch { get; set; }
         }
-         
+
+        [BsonIgnoreExtraElements]
+        public class SinchData
+        {
+            public string Username { get; set; }    
+            public string Password { get; set; }    
+        }
         [BsonIgnoreExtraElements]
         public class Vendor
         {

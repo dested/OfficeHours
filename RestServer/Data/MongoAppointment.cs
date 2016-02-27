@@ -35,6 +35,10 @@ namespace RestServer.Data
             [JsonConverter(typeof(StringEnumConverter))]
             [BsonRepresentation(BsonType.String)]
             public AppointmentState State { get; set; }
+
+            public string MemberSinchUsername { get; set; }
+            public string VendorSinchUsername { get; set; }
+            public string Url { get; set; }
         }
 
         [BsonIgnoreExtraElements]

@@ -28,6 +28,7 @@ namespace RestServer.Modules
                     fixDate(vendorScheduleDayBlock.EndTime.ToLocalTime(), model.EndDate) >= model.EndDate)
                 {
                     dayIsSchedulable = true;
+                    break;
                 }
             }
 
@@ -62,15 +63,16 @@ namespace RestServer.Modules
                 }
             }
 
-            scheduleAppointment(userVendor,userMember,model);
+            var appointment=scheduleAppointment(userVendor,userMember,model);
 
             return new ScheduleAppointmentResponse()
             {
+                Appointment= appointment,
                 Error = ScheduleError.None,
             };
         }
 
-        private static void scheduleAppointment(MongoUser.User userVendor, MongoUser.User userMember, ScheduleAppointmentRequest model)
+        private static MongoAppointment.Appointment scheduleAppointment(MongoUser.User userVendor, MongoUser.User userMember, ScheduleAppointmentRequest model)
         {
             MongoAppointment.Appointment appointment = new MongoAppointment.Appointment
             {
@@ -78,15 +80,33 @@ namespace RestServer.Modules
                 EndDate = model.EndDate,
                 VendorId = model.VendorId,
                 MemberId = model.MemberId,
+                VendorSinchUsername=userVendor.Sinch.Username,
+                MemberSinchUsername=userMember.Sinch.Username,
                 State = MongoAppointment.AppointmentState.Scheduled
             };
             appointment.Insert();
+            return appointment;
         }
 
  
         private static DateTime fixDate(DateTime toLocalTime, DateTime startDate)
         {
             return new DateTime(startDate.Year, startDate.Month, startDate.Day, toLocalTime.Hour, toLocalTime.Minute, toLocalTime.Second, DateTimeKind.Local);
+        }
+
+        public static GetAppointmentResponse GetAppointment(GetAppointmentRequest model)
+        {
+            var appointment=MongoAppointment.Collection.GetById(model.AppointmentId);
+            if (appointment == null)
+            {
+                throw new RequestValidationException("Appointment not found");
+            }
+
+            return new GetAppointmentResponse()
+            {
+                Appointment=appointment
+            };
+
         }
     }
 }

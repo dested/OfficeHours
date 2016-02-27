@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using RestServer.Common;
 using RestServer.Common.Nancy;
+using RestServer.Data;
 using RestServer.Logic;
 
 namespace RestServer.Modules
@@ -16,6 +17,7 @@ namespace RestServer.Modules
         {
           
             Post["/schedule"] = _ => this.Success(AppointmentLogic.ScheduleAppointment(ValidateRequest<ScheduleAppointmentRequest>()));
+            Get["/{appointmentId}"] = _ => this.Success(AppointmentLogic.GetAppointment(ValidateRequest<GetAppointmentRequest>()));
         }
     }
 
@@ -27,11 +29,22 @@ namespace RestServer.Modules
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
+    public class GetAppointmentRequest
+    {
+        public string AppointmentId { get; set; }
+    }
+    public class GetAppointmentResponse
+    {
+        public MongoAppointment.Appointment Appointment { get; set; }
+    }
+
     public class ScheduleAppointmentResponse
     {
         [JsonConverter(typeof(StringEnumConverter))]
         [BsonRepresentation(BsonType.String)]
         public ScheduleError Error { get; set; }
+
+        public MongoAppointment.Appointment Appointment { get; set; }
     }
 
     public enum ScheduleError
@@ -41,7 +54,6 @@ namespace RestServer.Modules
         DoubleBookingMember,
         DoubleBookingVendor,
     }
-
 
 
 

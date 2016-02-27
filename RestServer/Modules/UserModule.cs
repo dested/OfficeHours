@@ -19,7 +19,7 @@ namespace RestServer.Modules
             {
                 var model = ValidateRequest<UserLoginRequest>();
                 var response = UserLogic.Login(model);
-                return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.User.Id.ToString()}.ToJwtPayload())));
+                return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.User.Id.ToString() }.ToJwtPayload())));
             };
             Post["/register"] = _ =>
             {
@@ -28,13 +28,9 @@ namespace RestServer.Modules
                 return this.Success(response, new TokenMetaData(new JwtToken().Encode(new UserJwtModel() { UserId = response.User.Id.ToString() }.ToJwtPayload())));
             };
 
-            Get["/"] = _ =>
-            {
-                this.RequiresAuthentication();
-                return this.Success(UserLogic.GetUser(this.JwtModel));
-            };
-
-            Post["/vendor-availability"] = _ => this.Success(UserLogic.SetVendorAvailable(ValidateRequest<UserSetVendorAvailableRequest>()));
+            Get["/"] = _ => this.RequiresAuthentication().Success(UserLogic.GetUser(this.JwtModel));
+            Get["/vendor/{email}"] = _ => this.Success(UserLogic.GetPublicVendor(this.ValidateRequest<UserGetPublicVendorRequest>()));
+            Post["/vendor-availability"] = _ => this.RequiresAuthentication().Success(UserLogic.SetVendorAvailable(ValidateRequest<UserSetVendorAvailableRequest>()));
             Get["/{userId}/vendor-availability"] = _ => this.Success(UserLogic.GetVendorAvailable(ValidateRequest<UserRequest>()));
 
         }
@@ -49,6 +45,16 @@ namespace RestServer.Modules
     {
         public string Email { get; set; }
         public string Password { get; set; }
+    }
+
+    public class UserGetPublicVendorRequest
+    {
+        public string Email { get; set; }
+    }
+
+    public class UserGetPublicVendorResponse
+    {
+        public MongoUser.User Vendor { get; set; }
     }
     public class UserRequest
     {
@@ -78,7 +84,7 @@ namespace RestServer.Modules
     {
         public string VendorId { get; set; }
         public MongoUser.VendorSchedule Schedule { get; set; }
-    } 
+    }
 
     public class SuccessResponse
     {

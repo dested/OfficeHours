@@ -85,9 +85,10 @@ namespace RestServer
         /// This module requires authentication
         /// </summary>
         /// <param name="module">Module to enable</param>
-        public static void RequiresAuthentication(this NancyModule module)
+        public static NancyModule RequiresAuthentication(this NancyModule module)
         {
             module.AddBeforeHookOrExecute(RequiresAuthentication);
+            return module;
         }
 
         /// <summary>

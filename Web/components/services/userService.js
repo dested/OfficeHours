@@ -17,11 +17,14 @@ angular.module('OfficeHours.client')
             url: serviceUrl.path('${api}/user/'),
             extractResponse: 'user'
           }).then(function (user) {
-            debugger;
             $rootScope.user = user;
             deferred.resolve();
+          }).catch(function(){
+            deferred.reject();
           });
         }
+      }else{
+        deferred.reject();
       }
 
 

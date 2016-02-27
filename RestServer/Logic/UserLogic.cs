@@ -46,6 +46,10 @@ namespace RestServer.Logic
             {
                 initializeVendor(user);
             }
+            user.Sinch = new MongoUser.SinchData();
+            user.Sinch.Password = Guid.NewGuid().ToString("N");
+            user.Sinch.Username = Guid.NewGuid().ToString("N");
+
             user.Insert();
 
             return new UserDetailsResponse()
@@ -116,5 +120,20 @@ namespace RestServer.Logic
         }
 
 
+        public static UserGetPublicVendorResponse GetPublicVendor(UserGetPublicVendorRequest model)
+        {
+            var vendor=MongoUser.Collection.GetOne(a => a.Email == model.Email && a.Vendor != null);
+
+            if (vendor == null)
+            {
+                throw new RequestValidationException("Vendor not found");
+            }
+
+            return new UserGetPublicVendorResponse()
+            {
+                Vendor= vendor
+            };
+
+        }
     }
 }

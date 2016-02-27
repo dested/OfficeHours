@@ -5,7 +5,7 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
 
   userService.checkLogin().then(function(){
     if ($rootScope.user) {
-      if ($rootScope.user.isVendor) {
+      if ($rootScope.user.vendor) {
         $state.go('vendor-profile')
       } else {
         $state.go('member-profile')
@@ -15,6 +15,7 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
 
 
   $scope.callback.register=function(){
+    debugger;
     $http({
       method: "POST",
       url: serviceUrl.path('${api}/user/register'),
@@ -25,7 +26,7 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
       }
     }).then(function (body) {
       userService.login(body);
-      if($rootScope.user.isVendor){
+      if($rootScope.user.vendor){
         $state.go('vendor-profile')
       }else{
         $state.go('member-profile')
