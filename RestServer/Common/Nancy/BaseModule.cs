@@ -19,7 +19,16 @@ namespace RestServer.Common.Nancy
 
         protected T ValidateRequest<T>()
         {
-            var request = this.Bind<T>(new BindingConfig() { IgnoreErrors = false });
+            T request;
+            try
+            {
+                request = this.Bind<T>(new BindingConfig() {IgnoreErrors = false});
+
+            }
+            catch (Exception ex)
+            {
+                throw ;
+            }
             var validationResults = new List<ValidationResult>();
             var isValid = Validator.TryValidateObject(request, new ValidationContext(request), validationResults);
             if (!isValid)

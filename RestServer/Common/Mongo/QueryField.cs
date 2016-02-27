@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using MongoDB.Bson;
 
-namespace Common.Utils.Mongo
+namespace RestServer.Common.Mongo
 {
     public class QueryField
     {

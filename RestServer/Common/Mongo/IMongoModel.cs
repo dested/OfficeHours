@@ -4,7 +4,7 @@ using System.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Common.Utils.Mongo
+namespace RestServer.Common.Mongo
 {
     public interface IMongoModel
     {
@@ -13,10 +13,14 @@ namespace Common.Utils.Mongo
 
     public static class MongoTools
     {
+        private static IMongoDatabase database;
         public static IMongoDatabase GetDatabase()
         {
-            var client = new MongoClient(ConnectionString);
-            var database = client.GetDatabase(Database);
+            if (database == null)
+            {
+                var client = new MongoClient(ConnectionString);
+                database = client.GetDatabase(Database);
+            }
             return database;
         }
 
@@ -34,12 +38,12 @@ namespace Common.Utils.Mongo
 
         public static string ConnectionString
         {
-            get { return ConfigurationManager.AppSettings["Mongo"]; }
+            get { return ConfigurationManager.AppSettings["MongoConnectionString"]; }
         }
 
         public static string Database
         {
-            get { return ConfigurationManager.AppSettings["MongoDB"]; }
+            get { return ConfigurationManager.AppSettings["MongoDatabase"]; }
         }
 
         public static string GetCollectionName<T>() where T : IMongoModel

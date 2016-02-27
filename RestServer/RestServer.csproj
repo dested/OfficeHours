@@ -48,6 +48,10 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\MongoDB.Driver.2.2.2\lib\net45\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.2.2.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MongoDB.Driver.Core.2.2.2\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Driver.Legacy, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.2.0.1\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
       <Private>True</Private>
@@ -73,7 +77,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Common\Nancy\STResponse.cs" />
+    <Compile Include="Common\PasswordUtils.cs" />
+    <Compile Include="Data\MongoAppointment.cs" />
+    <Compile Include="Data\MongoUser.cs" />
+    <Compile Include="Logic\UserLogic.cs" />
+    <Compile Include="Modules\UserModule.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\Mongo\IMongoModel.cs" />
+    <Compile Include="Common\Mongo\MongoQueryUtils.cs" />
+    <Compile Include="Common\Mongo\QueryField.cs" />
     <Compile Include="Common\Nancy\BaseModule.cs" />
     <Compile Include="Common\Nancy\DefaultMetaData.cs" />
     <Compile Include="Common\Nancy\ErrorMetaData.cs" />
@@ -85,22 +98,17 @@
     <Compile Include="Common\Nancy\RequestValidationException.cs" />
     <Compile Include="Common\Nancy\ResponseBuilder.cs" />
     <Compile Include="Common\Nancy\ServerErrorException.cs" />
+    <Compile Include="Common\Nancy\STResponse.cs" />
     <Compile Include="Common\Nancy\TokenMetaData.cs" />
     <Compile Include="Common\Nancy\UserJwtModel.cs" />
-    <Compile Include="Logic\UserLogic.cs" />
-    <Compile Include="Modules\UserModule.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{8DDA742A-8276-4EB9-BDF7-6DD8C7EA6375}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

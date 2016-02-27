@@ -1,6 +1,6 @@
 using System;
 
-namespace Common.Utils
+namespace RestServer.Common
 {
     public static class Utils
     {
