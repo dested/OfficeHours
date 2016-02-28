@@ -7,7 +7,7 @@ module.controller('memberProfileCtrl', function ($scope, $rootScope,$http, servi
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('member-profile', {
+    .state('inner.member-profile', {
       //abstract: true,
       url: '/member-profile',
       controller: 'memberProfileCtrl',

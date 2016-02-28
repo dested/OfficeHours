@@ -38,7 +38,7 @@ module.controller('appointmentCtrl', function ($scope, $rootScope, $http, servic
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('appointment', {
+    .state('inner.appointment', {
       //abstract: true,
       url: '/appointment/{id}',
       controller: 'appointmentCtrl',

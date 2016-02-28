@@ -12,6 +12,16 @@ angular.module('OfficeHours.client')
     });
 
 
+    /*var messageClient = sinchClient.getMessageClient();
+     var myListenerObj = {
+     onMessageDelivered: function(messageDeliveryInfo) {
+     // Handle message delivery notification
+     },
+     onIncomingMessage: function(message) {
+     // Handle incoming message
+     }
+     };
+     messageClient.addEventListener(myListenerObj);*/
     var memberConnected = false;
 
     var callListeners = {

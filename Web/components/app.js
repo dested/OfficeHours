@@ -8,9 +8,19 @@ module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 });
 
-module.config(function ($httpProvider) {
+module.config(function ($httpProvider,$stateProvider) {
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+
+
+
+  $stateProvider
+    .state('inner', {
+      abstract: true,
+      templateUrl: 'components/inner.tpl.html'
+    });
+
 });
 
 

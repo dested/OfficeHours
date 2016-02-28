@@ -6,9 +6,9 @@ module.controller('loginCtrl', function ($scope, $rootScope,userService, $http, 
   userService.checkLogin().then(function(){
     if ($rootScope.user) {
       if ($rootScope.user.vendor) {
-        $state.go('vendor-profile')
+        $state.go('inner.vendor-profile')
       } else {
-        $state.go('member-profile')
+        $state.go('inner.member-profile')
       }
     }
   });
@@ -25,9 +25,9 @@ module.controller('loginCtrl', function ($scope, $rootScope,userService, $http, 
     }).then(function (body) {
       userService.login(body);
       if ($rootScope.user.vendor) {
-        $state.go('vendor-profile')
+        $state.go('inner.vendor-profile')
       } else {
-        $state.go('member-profile')
+        $state.go('inner.member-profile')
       }
     }).monitor();
   };
@@ -35,7 +35,7 @@ module.controller('loginCtrl', function ($scope, $rootScope,userService, $http, 
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('login', {
+    .state('inner.login', {
       //abstract: true,
       url: '/login',
       controller: 'loginCtrl',

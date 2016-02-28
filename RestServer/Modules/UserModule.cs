@@ -54,7 +54,7 @@ namespace RestServer.Modules
 
     public class UserGetPublicVendorResponse
     {
-        public MongoUser.User Vendor { get; set; }
+        public MongoUser.User User { get; set; }
     }
     public class UserRequest
     {

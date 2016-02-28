@@ -11,22 +11,8 @@
     <link type="text/css" rel="stylesheet" href="styles/styles.css"/>
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.jpg">
 </head>
-<body class="background-image">
-<div class="base-container">
-    <div class="overlay dark"></div>
-    <div class="base-color">
-        <div class="icons">
-            <img src="images/brand-full.svg" style="width: 160px;">
-        </div>
-    </div>
 
-    <div class="banner-text">
-        <ui-view></ui-view>
-    </div>
-
-    <div class="base-bottom"></div>
-</div>
-</body>
+<body ui-view ng-class="$root.isIndex?'background-image':''"></body>
 
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -50,5 +36,4 @@
 <script src="components/memberProfile/memberProfile.js"></script>
 <script src="components/appointment/appointment.js"></script>
 <script src="libs/sinch.min.js"></script>
-</body>
 </html>

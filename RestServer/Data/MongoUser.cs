@@ -53,6 +53,9 @@ namespace RestServer.Data
             public ObjectId Id { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
+            public string Name { get; set; }
+            public string Location { get; set; }
+            public string Avatar { get; set; }
             public bool IsGuest { get; set; }
             public DateTime CreatedDate { get; set; }
             public Vendor Vendor { get; set; }
@@ -68,7 +71,25 @@ namespace RestServer.Data
         [BsonIgnoreExtraElements]
         public class Vendor
         {
+            public string About { get; set; }
+            public List<VendorProfile> Profiles { get; set; }
             public VendorSchedule Schedule { get; set; }
+            public List<VendorReview> Reviews { get; set; } 
+        }
+
+        [BsonIgnoreExtraElements]
+        public class VendorProfile
+        {
+            public string Url { get; set; }
+            public string Name { get; set; }
+        }
+        [BsonIgnoreExtraElements]
+        public class VendorReview
+        {
+            public string Comment { get; set; }
+            public string Name { get; set; }
+            public int Stars { get; set; }
+            public DateTime CreatedDate { get; set; }
         }
 
         [BsonIgnoreExtraElements]

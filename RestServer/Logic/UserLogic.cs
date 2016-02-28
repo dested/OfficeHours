@@ -122,16 +122,16 @@ namespace RestServer.Logic
 
         public static UserGetPublicVendorResponse GetPublicVendor(UserGetPublicVendorRequest model)
         {
-            var vendor=MongoUser.Collection.GetOne(a => a.Email == model.Email && a.Vendor != null);
+            var user=MongoUser.Collection.GetOne(a => a.Email == model.Email && a.Vendor != null);
 
-            if (vendor == null)
+            if (user == null)
             {
                 throw new RequestValidationException("Vendor not found");
             }
 
             return new UserGetPublicVendorResponse()
             {
-                Vendor= vendor
+                User= user
             };
 
         }

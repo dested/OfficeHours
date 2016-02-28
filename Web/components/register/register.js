@@ -6,9 +6,9 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
   userService.checkLogin().then(function(){
     if ($rootScope.user) {
       if ($rootScope.user.vendor) {
-        $state.go('vendor-profile')
+        $state.go('inner.vendor-profile')
       } else {
-        $state.go('member-profile')
+        $state.go('inner.member-profile')
       }
     }
   });
@@ -27,9 +27,9 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
     }).then(function (body) {
       userService.login(body);
       if($rootScope.user.vendor){
-        $state.go('vendor-profile')
+        $state.go('inner.vendor-profile')
       }else{
-        $state.go('member-profile')
+        $state.go('inner.member-profile')
       }
     });
   };
@@ -37,7 +37,7 @@ module.controller('registerCtrl', function ($scope, $rootScope,$http, serviceUrl
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('register', {
+    .state('inner.register', {
       //abstract: true,
       url: '/register',
       controller: 'registerCtrl',

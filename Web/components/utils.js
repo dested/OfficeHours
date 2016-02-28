@@ -5,7 +5,6 @@ angular.module('OfficeHours.client')
     if (location.hostname != 'localhost') {
       url = 'https://api.officehours.club/api'; // server
     }
-    url = 'https://api.officehours.club/api'; // server
     return url;
   })
   .provider('requestInterceptor', function () {
@@ -108,7 +107,7 @@ angular.module('OfficeHours.client')
           if (to.resolve) {
             spinnerService.stopSpinner();
           }
-          $state.go('login');
+          $state.go('inner.login');
         }
       }
 
@@ -124,6 +123,8 @@ angular.module('OfficeHours.client')
       if (toState && toState.resolve) {
         spinnerService.stop();
       }
+
+      $rootScope.isIndex=toState.name=='main';
 
       // Scroll to the top of the page.
       $("html, body").animate({scrollTop: 0}, 200);

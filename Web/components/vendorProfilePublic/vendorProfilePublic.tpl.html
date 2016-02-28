@@ -1,4 +1,124 @@
-<p>
-    {{model.vendor.email}}
-    <button ng-click="callback.scheduleAppointment()">schedule appointment</button>
-</p>
+<!-- Banner, Profile -->
+
+<div class="color-container dark-bg">
+    <div class="content-container profile-container">
+        <div class="photo-container" style="width: 100%;">
+            <div class="photo profile-image" style="background: url({{model.user.avatar}}) no-repeat center center;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
+        </div>
+        <div class="name-wrapper">
+            <h2>{{model.user.name}}</h2>
+        </div>
+        <div class="location-container">
+            <div style="margin: 0 auto;">
+                <div class="location-icon icons">C</div>
+                <div class="location-text">San Francisco, CA</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Title -->
+
+<div class="color-container dark-bg">
+    <div class="content-container">
+        <h3 class="section-title">SCHEDULE</h3>
+    </div>
+</div>
+
+
+<!-- Tabs + Edit bar -->
+
+<div class="color-container dark-bg">
+    <div class="content-container less-dark-bg">
+        <div class="tabs-container" style="margin: 0 auto; padding-top: 30px; padding-bottom: 30px; opacity: 1.0;">
+            <div class="tab" ng-click="callback.changeTab('available')" ng-class="{active:model.activeTab=='available'}">Available</div>
+            <div class="tab" ng-click="callback.changeTab('all')" ng-class="{active:model.activeTab=='all'}">All</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Tabs + Edit bar -->
+
+<div class="color-container dark-bg">
+    <div class="content-container less-dark-bg" style="padding-bottom: 30px; " ng-if="!model.calendar">
+        Loading...
+    </div>
+    <div class="content-container less-dark-bg" style="padding-bottom: 30px; " ng-if="model.calendar">
+        <div class="date-container dark-bg" ng-repeat="calendarDay in model.calendarDays" ng-click="callback.openDay(calendarDay)">
+            <h2>{{calendarDay.day|date}}</h2>
+            <div class="location-text dates">({{calendarDay.slots.length}} times available)</div>
+            <div ng-if="calendarDay.open" class="close-icon icons">E</div>
+            <div ng-if="!calendarDay.open" class="arrow-icon icons">D</div>
+
+            <div class="available-time-container" ng-if="calendarDay.open">
+                <div class="one-time less-dark-bg" ng-repeat="slot in calendarDay.slots">
+                    <div class="time-available">
+                        <h2 class="digits">{{slot.startTime|date:'hh:mma'}} - {{slot.endTime|date:'hh:mma'}}</h2>
+                    </div>
+                    <div class="time-button-container">
+                        <div ng-class="{'primary-button':!slot.taken,'primary-button-bad':slot.taken}">BOOK ${{slot.price}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;">
+            <div class="primary-button secondary full-width" ng-click="callback.buildCalendarDays(model.currentFutureDays+3)">SHOW MORE</div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Section Title -->
+
+<div class="color-container dark-bg">
+    <div class="content-container">
+        <h3 class="section-title">ABOUT {{model.user.name.split(' ')[0].toUpperCase()}}</h3>
+    </div>
+</div>
+
+<!-- Body text -->
+
+<div class="color-container dark-bg">
+    <div class="content-container less-dark-bg" style="padding-top:30px;">
+        <p>{{model.user.vendor.about}}</p><br>
+
+        <div class="social-links" style="width: 100%;" ng-if="model.user.vendor.profiles">
+            <div ng-repeat="profile in model.user.vendor.profiles" ng-click="callback.gotoProfile(profile)" class="social-button secondary">{{profile.name}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Title -->
+
+<div class="color-container dark-bg" ng-if="model.user.vendor.reviews">
+    <div class="content-container">
+        <h3 class="section-title">REVIEWS</h3>
+    </div>
+
+</div>
+
+<!-- Body text -->
+
+<div class="color-container dark-bg" ng-if="model.user.vendor.reviews">
+    <div class="content-container less-dark-bg" style="padding-top:60px;">
+        <div class="rating-title">Average rating ({{model.user.vendor.reviews.length}} reviews)</div>
+        <div class="location-container" style="">
+            <div class="rating-box">
+
+                <div class="location-text"><h2>{{callback.getAverageStarsDisplay()|number:1}}</h2></div>
+                <div class="location-icon icons rating-icon">{{callback.getStars(callback.getAverageStars())}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Individual review  -->
+
+    <div class="content-container less-dark-bg individual-rating-box" ng-repeat="review in model.user.vendor.reviews">
+        <div class="primary-bg rating-text">{{review.comment}}
+            <div class="review-name">{{review.name}}&nbsp;&nbsp;&nbsp;<span class="review-date">{{review.createdDate|date}}</span></div>
+            <div class="icons small-review">{{callback.getStars(review.stars)}}</div>
+        </div>
+    </div>
+</div>

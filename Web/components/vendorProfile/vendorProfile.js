@@ -7,7 +7,7 @@ module.controller('vendorProfileCtrl', function ($scope, $rootScope,$http, servi
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('vendor-profile', {
+    .state('inner.vendor-profile', {
       //abstract: true,
       url: '/vendor-profile',
       controller: 'vendorProfileCtrl',

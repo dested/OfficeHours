@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using MongoDB.Driver;
 using Nancy.Hosting.Self;
+using RestServer.Common.Mongo;
 using Sinch.ServerSdk;
+using MongoUser = RestServer.Data.MongoUser;
 
 namespace RestServer
 {
