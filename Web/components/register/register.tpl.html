@@ -1,16 +1,31 @@
-<div class="color-container dark-bg">
-<form ng-submit="callback.register()">
-    Register
-    <label>
-        Email:<input type="text" ng-model="model.email">
-    </label>
-    <label>
-        Password:<input type="password" ng-model="model.password">
-    </label>
-    <label>
-        Do you intend to be a vendor:<input type="checkbox" ng-model="model.isVendor">
-    </label>
-    <button type="submit">Register</button>
 
-</form>
+<div class="color-container dark-bg">
+    <div class="content-container profile-container">
+        <div class="name-wrapper" style="width: 400px;margin: auto;">
+            <h2>Register</h2>
+        </div>
+    </div>
 </div>
+
+<div class="color-container dark-bg">
+    <form ng-submit="callback.register()" style="width: 400px;margin: auto; color:white;">
+        <label>
+            Email:<input type="text" ng-model="model.email">
+        </label>
+        <label>
+            Password:<input type="password" ng-model="model.password">
+        </label>
+        <br><br>
+        <input id="test6" type="checkbox" ng-model="model.isVendor">
+        <label for="test6">            Do you intend to be a vendor:
+        </label>
+        <br><br>
+        <label>
+        </label>
+        <button class="big-button" type="submit">Register</button>
+
+    </form>
+</div>
+
+
+

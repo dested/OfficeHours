@@ -304,8 +304,17 @@ p {
 	border: 2px solid #8464e5;
 	background-color: #8464e5;
 	color: white;
-}
+}.primary-button-3:hover {
+	 border: 2px solid #8464e5;
+	 background-color: indianred;
+	 color: white;
+ }
 
+.primary-button-2:hover {
+	border: 2px solid #8464e5;
+	background-color: #8464e5;
+	color: white;
+}
 .primary-button {
 	background-color: white;
 	border-radius: 4px;
@@ -313,6 +322,33 @@ p {
 	width: 140px;
 	text-align: center;
 	right: -10px;
+	font-family: Nexa;
+	color: #8464e5;
+	position: absolute;
+	top: -34px;
+	border: 2px solid #8464e5;
+}
+.primary-button-3 {
+	background-color: white;
+	border-radius: 4px;
+	padding: 13px 15px 12px 15px;
+	width: 140px;
+	text-align: center;
+	right: -10px;
+	font-family: Nexa;
+	color: #8464e5;
+	position: absolute;
+	top: -34px;
+	border: 2px solid #8464e5;
+}
+
+.primary-button-2 {
+	background-color: white;
+	border-radius: 4px;
+	padding: 13px 15px 12px 15px;
+	width: 140px;
+	text-align: center;
+	right: 150px;
 	font-family: Nexa;
 	color: #8464e5;
 	position: absolute;

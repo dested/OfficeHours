@@ -45,8 +45,8 @@
         Loading...
     </div>
     <div class="content-container less-dark-bg" style="padding-bottom: 30px; " ng-if="model.calendar">
-        <div class="date-container dark-bg" ng-repeat="calendarDay in model.calendarDays" ng-click="callback.openDay(calendarDay)">
-            <h2>{{calendarDay.day|date}}</h2>
+        <div class="date-container dark-bg" ng-repeat="calendarDay in model.calendarDays" >
+            <h2 ng-click="callback.openDay(calendarDay)">{{calendarDay.day|date}}</h2>
             <div class="location-text dates">({{calendarDay.slots.length}} times available)</div>
             <div ng-if="calendarDay.open" class="close-icon icons">E</div>
             <div ng-if="!calendarDay.open" class="arrow-icon icons">D</div>

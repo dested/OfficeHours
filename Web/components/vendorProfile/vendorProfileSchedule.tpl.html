@@ -1,0 +1,93 @@
+<!-- Banner, Profile -->
+
+<div class="color-container dark-bg">
+    <div class="content-container profile-container">
+        <div class="photo-container" style="width: 100%;">
+            <div class="photo profile-image"></div>
+        </div>
+        <div class="name-wrapper" style="cursor:pointer;">
+            edit
+        </div>
+        <div class="name-wrapper">
+            <h2>{{model.user.name}}</h2>
+        </div>
+        <div class="location-container">
+            <div style="margin: 0 auto;">
+                <div class="location-icon icons">C</div>
+                <div class="location-text">San Francisco, CA <span style=" color:white;cursor:pointer;">edit</span></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Section Title -->
+
+<div class="color-container dark-bg">
+    <div class="content-container">
+        <h3 class="section-title">SCHEDULE</h3>
+    </div>
+</div>
+
+
+<div class="color-container dark-bg">
+    <div class="content-container less-dark-bg" style="padding-bottom: 30px; ">
+        <div class="date-container dark-bg" ng-repeat="day in model.schedule.days">
+            <h2 ng-click="callback.openDay(day)">{{model.daysData[day.dayOfWeek]}}</h2>
+
+            <div ng-if="day.open" class="close-icon icons">E</div>
+            <div ng-if="!day.open" class="arrow-icon icons">D</div>
+
+            <div class="available-time-container" ng-if="day.open">
+                <div class="one-time less-dark-bg" ng-repeat="block in day.blocks">
+                    <div class="time-available">
+                        <h2 class="digits">{{block.startTime|date:'hh:mma'}} - {{block.endTime|date:'hh:mma'}}</h2>
+                    </div>
+                    <div class="time-button-container">
+                        <div class="primary-button-2">EDIT</div>
+                        <div class="primary-button-3">REMOVE</div>
+                    </div>
+                </div>
+                <div class="one-time less-dark-bg">
+                    <div class="time-available">
+                        &nbsp;
+                    </div>
+                    <div class="time-button-container">
+                        <div class="primary-button">ADD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="color-container dark-bg">
+    <div class="content-container">
+        <h3 class="section-title">EXCEPTIONS</h3>
+    </div>
+</div>
+<div class="color-container dark-bg">
+    <div class="content-container less-dark-bg" style="padding-bottom: 30px; ">
+        <div class="date-container dark-bg">
+            <div class="available-time-container" >
+                <div class="one-time less-dark-bg" ng-repeat="exception in model.schedule.exceptionDays">
+                    <div class="time-available">
+                        <h2 class="digits">{{exception.day|date:'MMM d'}} - {{exception.reason}}</h2>
+                    </div>
+                    <div class="time-button-container">
+                        <div class="primary-button-2">EDIT</div>
+                        <div class="primary-button-3">REMOVE</div>
+                    </div>
+                </div>
+                <div class="one-time less-dark-bg">
+                    <div class="time-available">
+                        &nbsp;
+                    </div>
+                    <div class="time-button-container">
+                        <div class="primary-button">ADD</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

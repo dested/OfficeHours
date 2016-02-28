@@ -1,13 +1,21 @@
+
 <div class="color-container dark-bg">
-    <form ng-submit="callback.login()">
-        Login
+    <div class="content-container profile-container">
+        <div class="name-wrapper" style="width: 400px;margin: auto;">
+            <h2>Register</h2>
+        </div>
+    </div>
+</div>
+
+<div class="color-container dark-bg">
+    <form ng-submit="callback.login()" style="width: 400px;margin: auto; color:white;">
         <label>
             Email:<input type="text" ng-model="model.email">
         </label>
         <label>
             Password:<input type="password" ng-model="model.password">
         </label>
-        <button type="submit">Login</button>
+        <button class="big-button" type="submit">Login</button>
 
     </form>
 </div>
