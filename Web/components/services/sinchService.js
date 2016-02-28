@@ -4,24 +4,24 @@ angular.module('OfficeHours.client')
     var self = this;
     this.sinchClient = new SinchClient({
       applicationKey: '1321b3c3-f27b-4a5f-a3a0-d117aab8894f',
-      capabilities: {calling: true, video: true},
+      capabilities: {calling: true, video: true,messaging:true},
       supportActiveConnection: true/*,
        onLogMessage: function (message) {
        console.log(message);
        }*/
     });
 
+    self. messageClient = self.sinchClient.getMessageClient();
+    var myListenerObj = {
+      onIncomingMessage: function(message) {
+        if(self.sinchClient.user.userId==message.senderId)return;
+        self.onMessageReceive && self.onMessageReceive(JSON.parse(message.textBody));
+      }
+    };
+    self.messageClient.addEventListener(myListenerObj);
 
-    /*var messageClient = sinchClient.getMessageClient();
-     var myListenerObj = {
-     onMessageDelivered: function(messageDeliveryInfo) {
-     // Handle message delivery notification
-     },
-     onIncomingMessage: function(message) {
-     // Handle incoming message
-     }
-     };
-     messageClient.addEventListener(myListenerObj);*/
+
+
     var memberConnected = false;
 
     var callListeners = {
@@ -79,12 +79,16 @@ angular.module('OfficeHours.client')
       return deferred.promise;
     };
 
+    this.sendChat=function(person,payload){
+      var message = self.messageClient.newMessage(person, JSON.stringify(payload));
+      self.messageClient.send(message);
+    };
+
     this.startCallMember = function (user) {
       this.callClient = self.sinchClient.getCallClient();
       this.callClient.initStream();
       this.callClient.addEventListener({
         onIncomingCall: function (incomingCall) {
-          debugger;
           //Manage the call object
           this.call = incomingCall;
           this.call.addEventListener(callListeners);
@@ -94,7 +98,6 @@ angular.module('OfficeHours.client')
     };
 
     this.startCallVendor = function (user, appointment) {
-      debugger;
       this.callClient = self.sinchClient.getCallClient();
       this.callClient.initStream();
 

@@ -1,6 +1,125 @@
-<div class="color-container dark-bg">
-    <pre>{{model.appointment|json}}</pre>
+<div class="color-container dark-bg" style="color:white;">
+    <!--<pre>{{model.appointment|json}}</pre>-->
 
-    <video id="outgoing"></video>
-    <video id="incoming"></video>
+    <div class="row">
+        <div ng-class="{active:model.tab=='video'}" class="tab col s4" ng-click="model.tab='video'">VIDEO</div>
+        <div ng-class="{active:model.tab=='chat'}" class="tab col s4" ng-click="model.tab='chat'">CHAT</div>
+        <div ng-class="{active:model.tab=='files'}" class="tab col s4" ng-click="model.tab='files'">FILES</div>
+    </div>
+    <div class="tab-body" ng-show="model.tab=='video'">
+        <video autoplay id="incoming" style="width:100%; height: 70vh;background: black;"></video>
+        <video autoplay id="outgoing" style="position: relative;width: 15vw;height: 15vh;border: solid 2px #2A2835;bottom: 6vh;margin-left: 8vw;margin-top: -13vh;background: black;"></video>
+    </div>
+    <div class="tab-body content-container" ng-show="model.tab=='chat'" >
+        <div style="height:63.9vh; overflow-y: auto;">
+            <div ng-repeat="chatItem in model.chatItems">
+                <div class="row" ng-if="chatItem.left">
+                    <div class="col s2">
+                        <div style="width:40px;height:40px;border-radius:50%; background-color:#459494;">
+                            <span style="padding-top: 9px;display: inline-block;padding-left: 12px;">{{chatItem.name}}</span>
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        &nbsp;
+                    </div>
+                    <div class="col s6">
+                        {{chatItem.message}}
+                    </div>
+                    <div class="col s3">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row" ng-if="!chatItem.left">
+                    <div class="col s3">
+                        &nbsp;
+                    </div>
+                    <div class="col s6">
+                        {{chatItem.message}}
+                    </div>
+                    <div class="col s1">
+                        &nbsp;
+                    </div>
+                    <div class="col s2">
+                        <div style="width:40px;height:40px;border-radius:50%; background-color:#E87D48;">
+                            <span style="padding-top: 9px;display: inline-block;padding-left: 12px;">{{chatItem.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="width:100%;">
+            <input type="text" my-enter="callback.sendChat()" ng-model="model.chatMessage" style="width: 89.5%;" placeholder="Message.." >
+            <button class="big-button" style="width:auto;" ng-click="callback.sendChat()">SEND</button>
+        </div>
+
+
+    </div>
+    <div class="tab-body" ng-show="model.tab=='files'">
+        <div ngf-drop="callback.uploadFiles($files)"
+             style="background-image: url(images/file-upload.png);width: 17vw;height: 40vh;background-size: contain;background-repeat: no-repeat;margin: auto;"></div>
+        <div style="height:34.9vh; overflow-y: auto;">
+            <div ng-repeat="file in model.files">
+                <div class="row" ng-if="file.left">
+                    <div class="col s2">
+                        <div style="width:40px;height:40px;border-radius:50%; background-color:#459494;">
+                            <span style="padding-top: 9px;display: inline-block;padding-left: 12px;">{{file.name}}</span>
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        &nbsp;
+                    </div>
+                    <div class="col s6">
+                        <div ng-if="file.progress>=0">
+                            {{file.progress*100|number:0}}%
+                        </div>
+                        <a ng-if="file.progress==-1" ng-href="{{file.url}}">{{file.fileName}}</a>
+                    </div>
+                    <div class="col s3">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row" ng-if="!file.left">
+                    <div class="col s3">
+                        &nbsp;
+                    </div>
+                    <div class="col s6">
+                        <a ng-href="{{file.url}}">{{file.fileName}}</a>
+                    </div>
+                    <div class="col s1">
+                        &nbsp;
+                    </div>
+                    <div class="col s2">
+                        <div style="width:40px;height:40px;border-radius:50%; background-color:#E87D48;">
+                            <span style="padding-top: 9px;display: inline-block;padding-left: 12px;">{{file.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="model.fileDownloading">
+                <div class="row">
+                    <div class="col s3">
+                        &nbsp;
+                    </div>
+                    <div class="col s6">
+                        <div>
+                            {{((model.fileDownloading.length/model.fileDownloading[0].length)*100)|number:0}}%
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        &nbsp;
+                    </div>
+                    <div class="col s2">
+                        <div style="width:40px;height:40px;border-radius:50%; background-color:#E87D48;">
+                            <span style="padding-top: 9px;display: inline-block;padding-left: 12px;">{{model.fileDownloading[0].name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <button class="big-button">END CALL</button>
 </div>

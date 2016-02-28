@@ -1,7 +1,8 @@
 var module = angular.module('OfficeHours.client', [
   'ui.router',
   'angular-jwt',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngFileUpload'
 ]);
 
 module.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
