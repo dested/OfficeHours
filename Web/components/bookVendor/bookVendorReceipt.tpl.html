@@ -1,0 +1,42 @@
+f<!-- Banner, Profile -->
+
+<div class="color-container dark-bg">
+    <div class="content-container profile-container">
+        <div class="photo-container" style="width: 100%;">
+            <div class="photo check-image"></div>
+        </div>
+    </div>
+</div>
+
+<div class="color-container dark-bg">
+    <div style="width: 400px;margin: auto;color:white; background-color:#292E37;">
+        <h3 style="font-size: 15px;padding:20px;">Meeting Link</h3>
+        <div style="background-color:#303642;">
+            <div style="padding:20px;">
+                <input type="text" value="https://officehours.club/#/appointment/{{model.appointment.id}}">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="color-container dark-bg" style="padding-top:20px; padding-bottom:20px;" >
+    <div style="width: 400px;margin: auto; color:white; background-color:#292E37;;">
+        <h3 style="font-size: 15px;padding:20px;">Meeting Summary</h3>
+
+        <div style="background-color:#303642;">
+            <div style="padding:20px;;">
+                <div><span>Meeting with</span> <span style="float:right;">{{model.vendor.name}}</span></div>
+                <div><span>Time</span> <span style="float:right;">{{model.slot.startTime|date:'hh:mma'}}-{{model.slot.endTime|date:'hh:mma'}}</span></div>
+                <div><span>Price</span> <span style="float:right;">${{model.slot.price}}</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="color-container dark-bg">
+    <div style="width: 400px;margin: auto;">
+        <button type="submit" class="big-button">Print Receipt</button>
+    </div>
+</div>

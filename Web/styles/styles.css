@@ -196,6 +196,14 @@ p {
 	background-size: cover;
 	height: 170px; width: 170px; border-radius: 50%; margin: 0 auto; box-shadow: 0px 0px 30px rgba(0,0,0,.6); border: 5px solid #8464e5;
 }
+.check-image {
+	background: url(../images/check.png) no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 170px; width: 170px; border-radius: 50%; margin: 0 auto; box-shadow: 0px 0px 30px rgba(0,0,0,.6); border: 5px solid #8464e5;
+}
 
 .content-container.profile-container {
 	padding-top: 80px; padding-bottom: 20px;
@@ -299,8 +307,18 @@ p {
 }
 
 .primary-button {
-	background-color: white; border-radius: 4px; padding: 13px 15px 12px 15px; width: 140px;text-align: center; right: -10px; font-family: Nexa; color: #8464e5; position: absolute; top: -34px; 	border: 2px solid #8464e5;
-
+	background-color: white;
+	border-radius: 4px;
+	padding: 13px 15px 12px 15px;
+	width: 140px;
+	text-align: center;
+	right: -10px;
+	font-family: Nexa;
+	color: #8464e5;
+	position: absolute;
+	top: -34px;
+	border: 2px solid #8464e5;
+}
 
 .primary-button-bad:hover {
 
@@ -308,7 +326,7 @@ p {
 
 .primary-button-bad {
 	background-color: grey; border-radius: 4px; padding: 13px 15px 12px 15px; width: 140px;text-align: center; right: -10px; font-family: Nexa; color: #8464e5; position: absolute; top: -34px; 	border: 2px solid #8464e5;
-}}
+}
 
 .full-width {
 	position: relative; top: 0; left: 0; width: 100%; margin-top: 30px;
@@ -371,4 +389,14 @@ p {
 
 .small-review {
 	position: absolute; bottom: -35px; right: 15px; font-size: 100px; margin-bottom: -40px; color:#FBC429;
+}
+
+.big-button{
+	width: 100%;
+	border: 0;
+	background-color: #8464e5;
+	color: white;
+	padding: 15px;
+	font-size: 24px;
+	font-family: Nexa;
 }

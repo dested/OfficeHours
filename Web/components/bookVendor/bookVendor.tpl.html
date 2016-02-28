@@ -1,0 +1,33 @@
+f<!-- Banner, Profile -->
+
+<div class="color-container dark-bg">
+    <div class="content-container profile-container">
+        <div class="photo-container" style="width: 100%;">
+            <div class="photo profile-image"></div>
+        </div>
+        <div class="name-wrapper" style="width: 400px;margin: auto;">
+            <h2>Meeting with {{model.vendor.name}} {{model.slot.startTime|date:'hh:mma'}}-{{model.slot.endTime|date:'hh:mma'}}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="color-container dark-bg">
+    <form ng-submit="callback.book()" style="width: 400px;margin: auto;">
+        <label>
+            Email:<input type="text" ng-model="model.email">
+        </label>
+        <label>
+            Credit Card Number:<input type="text" ng-model="model.creditCardNum">
+        </label>
+        <label>
+            Expiration Date:<input type="text" ng-model="model.expiration">
+        </label>
+        <label>
+            CVC:<input type="text" ng-model="model.cvc">
+        </label>
+        <label>
+            Zipcode:<input type="text" ng-model="model.zipcode">
+        </label>
+        <button type="submit" class="big-button">Book for ${{model.slot.price}}</button>
+    </form>
+</div>

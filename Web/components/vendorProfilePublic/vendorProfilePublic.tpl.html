@@ -57,7 +57,7 @@
                         <h2 class="digits">{{slot.startTime|date:'hh:mma'}} - {{slot.endTime|date:'hh:mma'}}</h2>
                     </div>
                     <div class="time-button-container">
-                        <div ng-class="{'primary-button':!slot.taken,'primary-button-bad':slot.taken}">BOOK ${{slot.price}}</div>
+                        <div ng-click="callback.bookSlot(slot,calendarDay)" ng-class="{'primary-button':!slot.taken,'primary-button-bad':slot.taken}">BOOK ${{slot.price}}</div>
                     </div>
                 </div>
             </div>

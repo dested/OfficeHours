@@ -6,7 +6,7 @@ module.controller('vendorProfilePublicCtrl', function ($scope, $rootScope, userS
   $scope.model.activeTab = 'available';
   $scope.model.calendar = null;
 
-  $scope.callback.changeTab=function (state) {
+  $scope.callback.changeTab = function (state) {
     $scope.model.activeTab = state;
     $scope.model.calendarDays = [];
     $scope.callback.buildCalendarDays(0);
@@ -21,6 +21,13 @@ module.controller('vendorProfilePublicCtrl', function ($scope, $rootScope, userS
     $scope.callback.buildCalendarDays(0);
     $scope.model.calendarDays[0].open = true;
   }).monitor();
+
+  $scope.callback.bookSlot = function (slot,day) {
+    $rootScope.slot = slot;
+    $rootScope.vendor = user;
+    $rootScope.day=day;
+    $state.go('inner.book-vendor');
+  };
 
   $scope.callback.openDay = function (day) {
     if (day.open) {
@@ -60,7 +67,7 @@ module.controller('vendorProfilePublicCtrl', function ($scope, $rootScope, userS
             startTime: c,
             endTime: new Date(+s.toDate()),
             price: price,
-            taken:false
+            taken: false
           });
         }
       }
@@ -70,18 +77,17 @@ module.controller('vendorProfilePublicCtrl', function ($scope, $rootScope, userS
 
     for (var i = 0; i < j.appointments.length; i++) {
       var appointment = j.appointments[i];
-      var aStart=new Date(appointment.startDate);
-      var aEnd=new Date(appointment.endDate);
-      debugger;
+      var aStart = new Date(appointment.startDate);
+      var aEnd = new Date(appointment.endDate);
 
       for (var k = 0; k < $scope.model.calendarDays.length; k++) {
         var _day = $scope.model.calendarDays[k];
         for (var l = 0; l < _day.slots.length; l++) {
           var slot = _day.slots[l];
-          var realStartTime=new Date((+day.day)+(+slot.startTime-+new Date(1987,6,22)));
-          var realEndTime=new Date((+day.day)+(+slot.endTime-+new Date(1987,6,22)));
-          if(realStartTime<=aEnd && aStart<=realEndTime){
-            slot.taken=true;
+          var realStartTime = new Date((+day.day) + (+slot.startTime - +new Date(1987, 6, 22)));
+          var realEndTime = new Date((+day.day) + (+slot.endTime - +new Date(1987, 6, 22)));
+          if (realStartTime <= aEnd && aStart <= realEndTime) {
+            slot.taken = true;
           }
         }
       }

@@ -20,7 +20,7 @@ namespace RestServer.Modules
 
 
             var day = userVendor.Vendor.Schedule.Days[(int)model.StartDate.DayOfWeek];
-            var dayIsSchedulable = false;
+            var dayIsSchedulable = true;
             foreach (var vendorScheduleDayBlock in day.Blocks)
             {
 
