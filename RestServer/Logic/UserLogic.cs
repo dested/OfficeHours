@@ -122,7 +122,7 @@ namespace RestServer.Logic
 
         public static UserGetPublicVendorResponse GetPublicVendor(UserGetPublicVendorRequest model)
         {
-            var user=MongoUser.Collection.GetOne(a => a.Email == model.Email && a.Vendor != null);
+            var user=MongoUser.Collection.GetAll().FirstOrDefault(a => a.Email.Replace("@","") == model.Email && a.Vendor != null);
 
             if (user == null)
             {

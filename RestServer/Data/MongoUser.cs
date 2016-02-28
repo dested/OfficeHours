@@ -55,7 +55,6 @@ namespace RestServer.Data
             public string Password { get; set; }
             public string Name { get; set; }
             public string Location { get; set; }
-            public string Avatar { get; set; }
             public bool IsGuest { get; set; }
             public DateTime CreatedDate { get; set; }
             public Vendor Vendor { get; set; }
