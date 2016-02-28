@@ -13,7 +13,6 @@ namespace RestServer
                 new Uri("http://localhost:4545");
             HostConfiguration hostConfigs = new HostConfiguration();
             hostConfigs.UrlReservations.CreateAutomatically = true;
-
             using (var host = new NancyHost(uri,new Bootstrapper(), hostConfigs))
             {
                 host.Start();

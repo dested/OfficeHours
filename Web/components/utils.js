@@ -3,8 +3,9 @@ angular.module('OfficeHours.client')
     var url = 'http://localhost:4545/api'; // local
 
     if (location.hostname != 'localhost') {
-      url = 'http://45.79.186.117:4545/api'; // server
+      url = 'https://api.officehours.club/api'; // server
     }
+    url = 'https://api.officehours.club/api'; // server
     return url;
   })
   .provider('requestInterceptor', function () {

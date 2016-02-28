@@ -1,5 +1,5 @@
 var module = angular.module('OfficeHours.client');
-module.controller('appointmentCtrl', function ($scope, $rootScope, $http, serviceUrl, appointment, userService, $state,sinchService) {
+module.controller('appointmentCtrl', function ($scope, $rootScope, $http, serviceUrl, appointment, userService, $state, sinchService) {
   $scope.model = {};
   $scope.callback = {};
   $scope.model.appointment = appointment;
@@ -18,11 +18,19 @@ module.controller('appointmentCtrl', function ($scope, $rootScope, $http, servic
   });
 
   function joinMember() {
-
+    sinchService.checkAccount($rootScope.user).then(function () {
+      sinchService.startCallMember($rootScope.user);
+    }).catch(function (d) {
+      console.log(d);
+    });
   }
 
   function joinVendor() {
-
+    sinchService.checkAccount($rootScope.user).then(function () {
+      sinchService.startCallVendor($rootScope.user, appointment);
+    }).catch(function (d) {
+      console.log(d);
+    })
   }
 
 

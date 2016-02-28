@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using JWT;
 using Nancy;
 using Nancy.Bootstrapper;
+using Nancy.Conventions;
 using Nancy.Extensions;
 using Nancy.Json;
 using Nancy.Responses.Negotiation;
