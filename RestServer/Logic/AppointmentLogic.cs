@@ -19,47 +19,50 @@ namespace RestServer.Modules
             var userMember = MongoUser.GetMemberById(model.MemberId);
 
 
-            var day = userVendor.Vendor.Schedule.Days[(int)model.StartDate.DayOfWeek];
-            var dayIsSchedulable = true;
-            foreach (var vendorScheduleDayBlock in day.Blocks)
+            if (false)
             {
-
-                if (fixDate(vendorScheduleDayBlock.StartTime.ToLocalTime(), model.StartDate) <= model.StartDate &&
-                    fixDate(vendorScheduleDayBlock.EndTime.ToLocalTime(), model.EndDate) >= model.EndDate)
+                var day = userVendor.Vendor.Schedule.Days[(int)model.StartDate.DayOfWeek];
+                var dayIsSchedulable = false;
+                foreach (var vendorScheduleDayBlock in day.Blocks)
                 {
-                    dayIsSchedulable = true;
-                    break;
+
+                    if (fixDate(vendorScheduleDayBlock.StartTime.ToLocalTime(), model.StartDate) <= model.StartDate &&
+                        fixDate(vendorScheduleDayBlock.EndTime.ToLocalTime(), model.EndDate) >= model.EndDate)
+                    {
+                        dayIsSchedulable = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!dayIsSchedulable)
-            {
-                return new ScheduleAppointmentResponse()
-                {
-                    Error = ScheduleError.OutsideOfWindow
-                };
-            }
-
-            foreach (var memberSchedule in MongoAppointment.Collection.GetAll(a => a.MemberId == model.MemberId))
-            {
-                if (model.StartDate <= memberSchedule.EndDate.ToLocalTime() && memberSchedule.StartDate.ToLocalTime() <= model.EndDate)
+                if (!dayIsSchedulable)
                 {
                     return new ScheduleAppointmentResponse()
                     {
-                        Error = ScheduleError.DoubleBookingMember
+                        Error = ScheduleError.OutsideOfWindow
                     };
                 }
-            }
 
-
-            foreach (var vendorSchedule in MongoAppointment.Collection.GetAll(a => a.VendorId == model.VendorId))
-            {
-                if (model.StartDate <= vendorSchedule.EndDate.ToLocalTime() && vendorSchedule.StartDate.ToLocalTime() <= model.EndDate)
+                foreach (var memberSchedule in MongoAppointment.Collection.GetAll(a => a.MemberId == model.MemberId))
                 {
-                    return new ScheduleAppointmentResponse()
+                    if (model.StartDate <= memberSchedule.EndDate.ToLocalTime() && memberSchedule.StartDate.ToLocalTime() <= model.EndDate)
                     {
-                        Error = ScheduleError.DoubleBookingVendor
-                    };
+                        return new ScheduleAppointmentResponse()
+                        {
+                            Error = ScheduleError.DoubleBookingMember
+                        };
+                    }
+                }
+
+
+                foreach (var vendorSchedule in MongoAppointment.Collection.GetAll(a => a.VendorId == model.VendorId))
+                {
+                    if (model.StartDate <= vendorSchedule.EndDate.ToLocalTime() && vendorSchedule.StartDate.ToLocalTime() <= model.EndDate)
+                    {
+                        return new ScheduleAppointmentResponse()
+                        {
+                            Error = ScheduleError.DoubleBookingVendor
+                        };
+                    }
                 }
             }
 
